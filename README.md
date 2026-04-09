@@ -1,2 +1,2 @@
 # My-server
-Basically a 24/7 server
+i want to make my own ai model.
