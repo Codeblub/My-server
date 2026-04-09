@@ -1,0 +1,31 @@
+<div id="ai-memory">
+    <h3>Brain Memory (Stored in Repo)</h3>
+    <div id="memory-content">Loading knowledge...</div>
+</div>
+
+<script>
+    async function loadRepoData() {
+        // Use the 'raw' link so you get the actual JSON, not the GitHub UI
+        const repoUrl = 'https://raw.githubusercontent.com/Codeblub/My-server/main/memory.json';
+        
+        try {
+            const response = await fetch(repoUrl);
+            const data = await response.json();
+            
+            // Display the learned info
+            const container = document.getElementById('memory-content');
+            container.innerHTML = data.map(item => `
+                <div style="border-bottom: 1px solid #333; padding: 10px;">
+                    <strong>Source:</strong> ${item.url}<br>
+                    <strong>Learned:</strong> ${item.summary}
+                </div>
+            `).join('');
+        } catch (e) {
+            console.log("No memory file found yet. Run the C++ app first!");
+        }
+    }
+
+    // Refresh memory every 30 seconds
+    setInterval(loadRepoData, 30000);
+    loadRepoData();
+</script>
